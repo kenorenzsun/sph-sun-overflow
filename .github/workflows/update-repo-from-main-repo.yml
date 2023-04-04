@@ -1,0 +1,25 @@
+name: Update Forked Repo
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Fetch upstream changes
+      run: git remote add upstream https://github.com/framgia/sph-sun-overflow.git && git fetch upstream
+      
+    - name: Merge upstream changes into develop branch
+      run: git checkout develop && git merge upstream/develop
+      
+    - name: Push changes to forked repository
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: develop
