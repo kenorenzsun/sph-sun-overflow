@@ -5,6 +5,9 @@ module.exports = withMT({
     content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Inter', 'Arial', 'sans-serif'],
+            },
             colors: {
                 'primary-red': '#ff2200',
                 'secondary-red': '#ff5500',
@@ -18,21 +21,26 @@ module.exports = withMT({
                 'light-gray': '#f5f5f5',
                 'secondary-text': '#808080',
                 neutral: {
-                    100: '#f5f5f5',
-                    200: '#e5e5e5',
-                    300: '#d4d4d4',
-                    500: '#737373',
-                    700: '#404040',
-                    900: '#171717',
+                    white: '#FFFFFF',
+                    disabled: '#33333380',
+                    900: '#333333',
+                    700: '#716666',
+                    500: '#9F9191',
+                    300: '#B8ABAB',
+                    200: '#DAD2D2',
+                    100: '#FDFBFB',
                 },
-                red: {
-                    50: '#fef2f2',
-                    100: '#fee2e2',
-                    200: '#fecaca',
-                    300: '#fca5a5',
-                    500: '#ef4444',
-                    700: '#b91c1c',
-                    900: '#7f1d1d',
+                primary: {
+                    success: '#59BC7F',
+                    base: '#FF2200',
+                    blue: '#3B8CD7',
+                    900: '#D84028',
+                    700: '#EA614C',
+                    500: '#F49181',
+                    300: '#EEB4AC',
+                    200: '#F5D3CF',
+                    100: '#FFF4F2',
+                    50: '#FFF9F9'
                 },
             },
             dropShadow: {

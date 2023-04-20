@@ -7,14 +7,25 @@ import {
     HiChevronLeft,
     HiChevronRight,
     HiEye,
+    HiOutlineEye,
+    HiOutlinePencilAlt,
+    HiOutlineTrash,
     HiPencilAlt,
     HiSearch,
-    HiTrash,
     HiX,
 } from 'react-icons/hi'
 import { HiCheck } from 'react-icons/hi2'
 import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io'
-import { MdModeEditOutline, MdOutlineModeEditOutline } from 'react-icons/md'
+import { MdOutlineModeEditOutline } from 'react-icons/md'
+import ChevronIcon from './Chevron'
+import DotsIcon from './Dots'
+import EyeIcon from './Eye'
+import GridIcon from './Grid'
+import ListIcon from './List'
+import LockIcon from './Lock'
+import ThumbUpIcon from './ThumbUp'
+import UnlockIcon from './Unlock'
+import UsersIcon from './Users'
 
 type IconsProps = {
     name: string
@@ -24,10 +35,16 @@ type IconsProps = {
 
 const Icons = ({ name, size = '20', additionalClass = '' }: IconsProps): JSX.Element => {
     switch (name) {
-        case 'table_edit':
-            return <MdModeEditOutline size={20} className="fill-blue-800" />
-        case 'table_delete':
-            return <HiTrash size={20} className="fill-primary-red" />
+        case 'pencil':
+            return <HiOutlinePencilAlt size={size} className="cursor-pointer" />
+        case 'eye':
+            return <HiOutlineEye size={size} className="cursor-pointer" />
+        case 'trash':
+            return <HiOutlineTrash size={size} className="cursor-pointer" />
+        case 'close':
+            return <HiX size={size} className="cursor-pointer" />
+        case 'dot':
+            return <img src="/svg/Dot.svg" alt="Dot" className="text-[#5F5F5F]" />
         case 'square_edit':
             return <HiPencilAlt size="28" className="cursor-pointer fill-primary-red" />
         case 'vote_up':
@@ -102,6 +119,18 @@ const Icons = ({ name, size = '20', additionalClass = '' }: IconsProps): JSX.Ele
         default:
             return <></>
     }
+}
+
+export const CustomIcons = {
+    ChevronIcon,
+    DotsIcon,
+    EyeIcon,
+    GridIcon,
+    ListIcon,
+    LockIcon,
+    ThumbUpIcon,
+    UnlockIcon,
+    UsersIcon,
 }
 
 export default Icons
