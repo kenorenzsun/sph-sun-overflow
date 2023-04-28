@@ -1,5 +1,5 @@
 import PageStats from '@/components/atoms/PageStats'
-import MemberManage from '@/components/templates/MemberManage'
+import ManageMembersTab from '@/components/organisms/ManageMembersTab'
 import QuestionsPageLayout from '@/components/templates/QuestionsPageLayout'
 import GET_QUESTIONS from '@/helpers/graphql/queries/get_questions'
 import GET_TEAM from '@/helpers/graphql/queries/get_team'
@@ -13,6 +13,7 @@ interface UserType {
     id: number
     first_name: string
     last_name: string
+    avatar: string
 }
 
 interface TeamType {
@@ -35,6 +36,7 @@ const getActiveTabClass = (status: boolean): string => {
 const TeamDetail = (): JSX.Element => {
     const router = useRouter()
     const [activeTab, setActiveTab] = useState<string>('Questions')
+    const [verified, setVerified] = useState<boolean>(false)
 
     const { slug } = router.query
     const questionsApi = useQuery<any, RefetchType>(GET_QUESTIONS, {
@@ -48,12 +50,19 @@ const TeamDetail = (): JSX.Element => {
 
     const { data, loading, error } = useQuery(GET_TEAM, {
         variables: { slug },
+        async onCompleted(data) {
+            if (data.team === null) {
+                errorNotify('Team does not exist')
+                await router.replace('/manage/teams')
+            }
+            setVerified(true)
+        },
     })
 
     const team: TeamType = data?.team
     const teamLeader: UserType = team?.teamLeader
 
-    if (loading || questionsApi.loading) return loadingScreenShow()
+    if (loading || questionsApi.loading || !verified) return loadingScreenShow()
     if (error) {
         return <span>{errorNotify(`Error! ${error.message}`)}</span>
     }
@@ -69,7 +78,7 @@ const TeamDetail = (): JSX.Element => {
     const renderMembers = (): JSX.Element => {
         return (
             <div className="h-[70%] w-[93%]">
-                <MemberManage isForAdmin={true} />{' '}
+                <ManageMembersTab team={team} isUserTeamLeader={true} />
             </div>
         )
     }

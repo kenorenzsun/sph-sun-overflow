@@ -6,6 +6,7 @@ type Answer {
     updated_at: String
     humanized_created_at: String
     vote_count: Int
+    upvote_percentage: Float
     user_vote: Int
     is_bookmarked: Boolean
     user: User! @belongsTo
@@ -13,6 +14,7 @@ type Answer {
     notifications: [UserNotification]! @morphMany
     comments: [Comment]! @morphMany
     votes: [Vote]! @morphMany
+    upvote_percentage: Float
     is_created_by_user: Boolean
     is_from_user: Boolean
 }

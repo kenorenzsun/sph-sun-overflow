@@ -35,7 +35,12 @@ const TagsInput = ({
     const [queryText, setQueryText] = useState<string>(initialState.queryText)
 
     useEffect(() => {
-        refetchSuggestions(queryText)
+        const timeout = setTimeout(() => {
+            refetchSuggestions(queryText)
+        }, 1000)
+        return () => {
+            clearTimeout(timeout)
+        }
     }, [queryText])
 
     const deleteTag = (id: number): void => {
@@ -49,6 +54,9 @@ const TagsInput = ({
     )
 
     useEffect(() => {
+        if (tagsSelected.length > 5) {
+            setTagsSelected(tagsSelected.slice(0, 5))
+        }
         setValue('tags', tagsSelected)
     }, [tagsSelected])
 
@@ -72,7 +80,7 @@ const TagsInput = ({
                 multiple
                 disabled={disableInput}
             >
-                <div className="mx-1 mt-1 flex flex-row flex-wrap gap-x-0.5 gap-y-1 ">
+                <div className="mx-1 mt-1 flex w-full flex-row flex-wrap gap-x-0.5 gap-y-1 ">
                     {tagsSelected.map((tag, index) => {
                         const { name, id } = tag
                         return (
@@ -88,14 +96,19 @@ const TagsInput = ({
                             />
                         )
                     })}
-                    <Combobox.Input
-                        id="comboBoxInput"
-                        className="mx-2 w-full border-none  text-sm text-gray-900 focus:ring-0 sm:w-auto"
-                        onChange={(event) => {
-                            setQueryText(event.target.value)
-                        }}
-                        value={queryText}
-                    />
+                    {tagsSelected.length < 5 && (
+                        <div className="flex min-w-0  flex-grow">
+                            <Combobox.Input
+                                id="comboBoxInput"
+                                size={1}
+                                className="mx-2 flex flex-grow border-none text-sm text-gray-900 focus:ring-0 sm:w-auto"
+                                onChange={(event) => {
+                                    setQueryText(event.target.value)
+                                }}
+                                value={queryText}
+                            />
+                        </div>
+                    )}
                 </div>
 
                 <div className="relative mt-1 w-full">

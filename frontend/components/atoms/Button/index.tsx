@@ -16,9 +16,13 @@ type TUsage =
     | 'toggle-modal'
     | 'modal-cancel'
     | 'modal-submit'
+    | 'follow-modal'
+    | 'main-follow'
+    | 'send'
+    | 'primary-regular'
 type Props = {
     usage?: TUsage | string
-    size?: 'regular' | 'large'
+    size?: 'regular' | 'large' | 'medium'
     type?: 'button' | 'submit' | 'reset'
     additionalClass?: string
     isDisabled?: boolean
@@ -29,16 +33,16 @@ type Props = {
 const getButtonClasses = (usage: string, size: string): string => {
     switch (usage) {
         case 'filled':
-            return `items-center font-semibold rounded px-4 py-2 bg-primary-900 text-sm text-white capitalize focus:ring-1 focus:ring-primary-900 focus:bg-primary-900 ${
-                size === 'regular' ? 'h-8' : 'h-10'
+            return `items-center rounded-[5px] px-4 bg-primary-900 text-white capitalize focus:ring-1 focus:ring-primary-900 focus:bg-primary-900 ${
+                size === 'regular' ? 'font-normal text-xs h-7' : 'text-sm h-9 font-semibold'
             }`
         case 'stroke':
-            return `items-center font-semibold rounded px-4 py-2 border bg-neutral-white border-primary-900 text-sm text-primary-900 capitalize focus:ring-1 focus:ring-primary-900 ${
-                size === 'regular' ? 'h-8' : 'h-10'
+            return `items-center rounded-[5px] px-4 border bg-neutral-white border-primary-900 text-primary-900 capitalize focus:ring-1 focus:ring-primary-900 ${
+                size === 'regular' ? 'font-normal text-xs h-7' : 'text-sm h-9 font-semibold'
             }`
         case 'grayed':
-            return `items-center font-semibold rounded px-4 py-2 border bg-neutral-white border-neutral-900 text-sm text-neutral-900 capitalize focus:ring-1 focus:ring-neutral-900 ${
-                size === 'regular' ? 'h-8' : 'h-10'
+            return `items-center rounded-[5px] px-4 border bg-neutral-white border-neutral-900 text-neutral-900 capitalize focus:ring-1 focus:ring-neutral-900 ${
+                size === 'regular' ? 'font-normal text-xs h-7' : 'text-sm h-9 font-semibold'
             }`
         case 'primary':
             return 'items-center rounded-lg border-2 px-5 py-2.5 text-center text-sm font-medium focus:ring-1 text-red-700 border-red-500 focus:ring-red-600 hover:bg-rose-200'
@@ -57,7 +61,7 @@ const getButtonClasses = (usage: string, size: string): string => {
         case 'icon':
             return 'absolute inset-y-0 right-0 mr-2 flex items-center'
         case 'popover':
-            return 'items-center rounded-lg border-2 px-5 py-2.5 text-center text-sm font-medium focus:ring-1 text-red-700 bg-white border-red-500 focus:ring-red-600 hover:bg-light-red'
+            return 'rounded-[5px] h-[28px] border-2 px-4 text-[12px] text-neutral-900 bg-white border-neutral-900 border-[1px] hover:bg-neutral-200 outline-none'
         case 'cancel-item':
             return 'items-center rounded-full border-2 outline-0 border-primary-red absolute outline-primary-red -top-2 -right-2 bg-white text-primary-red p-1 hover:bg-primary-red hover:text-white active:bg-primary-red active:text-white active:outline active:outline-[2px]'
         case 'edit-top-right':
@@ -72,6 +76,18 @@ const getButtonClasses = (usage: string, size: string): string => {
             return 'items-center rounded-md bg-primary-red text-white px-4 text-sm hover:bg-secondary-red py-1'
         case 'question-form':
             return 'px-10 inline-flex items-center justify-center rounded-md bg-primary-red p-4 text-center text-sm text-white hover:bg-dark-red focus:outline-none focus:ring-1 focus:ring-red-700'
+        case 'follow-modal-follow':
+            return 'border-neutral-900 bg-primary-300 border rounded-md font-semibold text-xs text-neutral-900 w-20 h-7'
+        case 'follow-modal-following':
+            return 'border-neutral-900 border rounded-md font-semibold text-xs text-neutral-900 w-20 h-7'
+        case 'follow-modal-unfollow':
+            return 'border-primary-700 border rounded-md font-semibold text-xs text-primary-700 bg-neutral-white w-[84px] h-7'
+        case 'main-follow':
+            return 'w-full rounded border border-red-400 font-bold text-primary-900 text-sm px-4 py-2 h-9'
+        case 'send':
+            return 'absolute inset-y-0 right-2 flex cursor-pointer items-center text-neutral-disabled hover:text-primary-base'
+        case 'primary-regular':
+            return 'flex items-center h-7 rounded-smd border px-[17px] py-2 text-center text-xs focus:ring-1 text-primary-base border-primary-base focus:ring-primary-base focus:text-neutral-white focus:bg-primary-base hover:ring-0 hover:text-neutral-white hover:bg-primary-base'
         default:
             return 'items-center rounded-lg border-2 px-5 py-2.5 text-center text-sm font-medium focus:ring-1 text-red-700 border-red-500 focus:ring-red-600 hover:bg-rose-200'
     }
